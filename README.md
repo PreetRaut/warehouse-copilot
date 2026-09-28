@@ -1,6 +1,7 @@
 # Warehouse Copilot 🤖❄️
 
 **An end-to-end AI data engineering platform: a public API → Snowflake → dbt → Dagster pipeline, topped with a Model Context Protocol (MCP) server that lets any LLM query the warehouse in plain English — safely.**
+<img width="997" height="681" alt="Screenshot 2026-09-28 at 3 38 56 PM" src="https://github.com/user-attachments/assets/30b97613-18b0-4aa4-a3c9-83ea63c65ab2" />
 
 [![CI](https://github.com/PreetRaut/warehouse-copilot/actions/workflows/ci.yml/badge.svg)](https://github.com/PreetRaut/warehouse-copilot/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue)

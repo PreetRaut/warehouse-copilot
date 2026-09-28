@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: dim_currency
+    description: "Currency dimension from a version-controlled seed."
+    columns:
+      - name: currency_code
+        tests: [not_null, unique]
+
+  - name: fct_fx_rate
+    description: "Incremental fact table of FX rates with a surrogate key (merge strategy)."
+    columns:
+      - name: fx_rate_key
+        tests: [not_null, unique]
+      - name: rate
+        tests: [not_null]
+      - name: quote_currency
+        tests:
+          - relationships:
+              to: ref('dim_currency')
+              field: currency_code
+
+  - name: mart_fx_daily_metrics
+    description: "Daily returns, 7/30-day moving averages and 30-day volatility per currency."
+    columns:
+      - name: fx_rate_key
+        tests: [not_null, unique]
+      - name: rate
+        tests: [not_null]

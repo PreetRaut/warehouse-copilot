@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# dbt
+dbt/warehouse_copilot/target/
+dbt/warehouse_copilot/dbt_packages/
+dbt/warehouse_copilot/logs/
+logs/
+
+# Dagster
+tmp*/
+.dagster/
+dagster_home/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

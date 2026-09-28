@@ -1,0 +1,39 @@
+name: "warehouse_copilot"
+version: "0.1.0"
+config-version: 2
+
+profile: "warehouse_copilot"
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+vars:
+  # Set to true only if Snowflake Cortex LLM functions are available in your
+  # trial region. Keeps the core pipeline free/portable when false.
+  enable_cortex: false
+
+models:
+  warehouse_copilot:
+    +materialized: view
+    staging:
+      +schema: analytics
+      +materialized: view
+    intermediate:
+      +schema: analytics
+      +materialized: ephemeral
+    marts:
+      +schema: analytics
+      +materialized: table
+      ai:
+        +materialized: table
+
+seeds:
+  warehouse_copilot:
+    +schema: analytics
+    dim_currency_seed:
+      +column_types:
+        currency_code: varchar(3)

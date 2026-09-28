@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: raw
+    database: "{{ env_var('SNOWFLAKE_DATABASE', 'WAREHOUSE_COPILOT') }}"
+    schema: "{{ env_var('SNOWFLAKE_SCHEMA_RAW', 'RAW') }}"
+    description: "Landing zone loaded by the Python ingestion job."
+    tables:
+      - name: fx_rates
+        description: "Daily FX reference rates from the ECB via Frankfurter."
+        loaded_at_field: loaded_at
+        freshness:
+          warn_after: { count: 48, period: hour }
+          error_after: { count: 168, period: hour }
+        columns:
+          - name: rate_date
+            tests: [not_null]
+          - name: base_currency
+            tests: [not_null]
+          - name: quote_currency
+            tests: [not_null]
+          - name: rate
+            tests: [not_null]

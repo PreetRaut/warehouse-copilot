@@ -1,0 +1,33 @@
+# Copy to profiles.yml in this folder (or set DBT_PROFILES_DIR to it).
+# Values come from environment variables so no secrets live in the repo.
+#
+# Default: key-pair auth (works with MFA-enforced accounts). Set
+# SNOWFLAKE_PRIVATE_KEY_PATH in your environment / .env.
+warehouse_copilot:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      private_key_path: "{{ env_var('SNOWFLAKE_PRIVATE_KEY_PATH', '') }}"
+      # Uncomment if your key is encrypted with a passphrase:
+      # private_key_passphrase: "{{ env_var('SNOWFLAKE_PRIVATE_KEY_PASSPHRASE', '') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE', 'WAREHOUSE_COPILOT_RW') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE', 'WH_XS') }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE', 'WAREHOUSE_COPILOT') }}"
+      schema: "{{ env_var('SNOWFLAKE_SCHEMA_ANALYTICS', 'ANALYTICS') }}"
+      threads: 4
+      client_session_keep_alive: false
+
+    # Alternative: password auth (only works if the account does NOT enforce MFA).
+    # password:
+    #   type: snowflake
+    #   account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+    #   user: "{{ env_var('SNOWFLAKE_USER') }}"
+    #   password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+    #   role: "{{ env_var('SNOWFLAKE_ROLE', 'WAREHOUSE_COPILOT_RW') }}"
+    #   warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE', 'WH_XS') }}"
+    #   database: "{{ env_var('SNOWFLAKE_DATABASE', 'WAREHOUSE_COPILOT') }}"
+    #   schema: "{{ env_var('SNOWFLAKE_SCHEMA_ANALYTICS', 'ANALYTICS') }}"
+    #   threads: 4

@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: stg_fx_rates
+    description: "Cleaned, typed FX rates - one row per (date, base, quote)."
+    columns:
+      - name: rate_date
+        tests: [not_null]
+      - name: quote_currency
+        tests: [not_null]
+      - name: rate
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: false
